@@ -9,7 +9,7 @@ Random tests.
  2. bar
  3. baz
  4. 
-----
+---
 # Another test
 
 ## subtitle
