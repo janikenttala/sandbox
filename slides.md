@@ -16,4 +16,4 @@ This is slide 2
  * bullet 2
 ---
 # Slide 4
- 
+ sync test
