@@ -1,5 +1,12 @@
 # Slide 1
 This is slide 1
+
+???
+
+My notes
+ * foo 
+ * bar
+
 ---
 # Slide 2
 This is slide 2
