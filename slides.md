@@ -7,7 +7,6 @@ This is slide 2
 # Slide 3
  * bullet 1
  * bullet 2
- 
 ---
-# Is this slide 4?
+# Slide 4
  
