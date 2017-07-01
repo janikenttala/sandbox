@@ -1,0 +1,47 @@
+.table {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 1rem;
+  font-size: .9rem;
+  border: 1px solid #888;
+  border-radius: 2px;
+}
+
+.th {
+  font-weight: 700;
+  background-color: #f0ffff;
+  display: flex;
+
+}
+
+.th > .td {
+  white-space: normal;
+  justify-content: center;
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.tr:nth-of-type(even) {
+  background-color: #f2f2f2;
+}
+
+.tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.td {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5em;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  min-width: 0px;
+  border-bottom: 1px solid #ddd;
+
+}
