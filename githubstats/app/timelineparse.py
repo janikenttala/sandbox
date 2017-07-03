@@ -1,5 +1,5 @@
 import subprocess
-import sys,time
+import sys
 
 def process(raw, jq):
     cmd = subprocess.Popen(jq,
@@ -98,7 +98,6 @@ def parse(data):
         yield line
 
     for line in create(data):
-        print(line)
         yield line
 
 

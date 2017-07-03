@@ -3,7 +3,7 @@
 # based on example at:
 # https://daanlenaerts.com/blog/2015/06/03/create-a-simple-http-server-with-python-3/
 
-from http.server import BaseHTTPRequestHandler, SimpleHTTPRequestHandler, HTTPServer
+from http.server import SimpleHTTPRequestHandler, HTTPServer
 import urllib.request
 import time
 import json
@@ -16,9 +16,9 @@ raw_timeline = ""
 
 class timelineServer(SimpleHTTPRequestHandler):
     """blah"""
-    def __init__(self,request, client_address, server):
+    def __init__(self, request, client_address, server):
         self.raw_timeline = ""
-        SimpleHTTPRequestHandler.__init__(self,request, client_address, server)
+        SimpleHTTPRequestHandler.__init__(self, request, client_address, server)
 
     def err(self):
         self.send_response(404)
@@ -36,7 +36,7 @@ class timelineServer(SimpleHTTPRequestHandler):
         return
 
     def do_GET(self):
-        # Investigate: initialising self.raw_timeline to "" and assigning 
+        # Investigate: initialising self.raw_timeline to "" and assigning
         # value to it is not preserved, next do_GET it is empty again.
         global raw_timeline
 
@@ -51,8 +51,8 @@ class timelineServer(SimpleHTTPRequestHandler):
                 timeline = list()
                 raw_timeline = getgit("evilon",
                                       "<key>",
-                                      debug=True)
-            for line in  parsetimeline(raw_timeline):
+                                      debug=False)
+            for line in parsetimeline(raw_timeline):
                 timeline.append(line)
 
             self._send(json.dumps(timeline), "application/json")
@@ -75,14 +75,24 @@ def cache_expired(cache_time):
     if now - lastCache > cache_time:
         lastCache = now
         return True
-    else:
-        return False
+
+    return False
 
 def parsetimeline(timeline):
     timeline = timeline.encode('utf-8')
+    timelineindex = dict()
+
     for line in timelineparse.parse(timeline):
-        if len(line) == 0: continue
-        yield json.loads(line)
+        if len(line) == 0:
+            continue
+        linedict = json.loads(line)
+        index = linedict["time"] + "-" + str(time.time())
+
+        timelineindex[index] = linedict
+
+    #sort here
+    for key in sorted(timelineindex,reverse=True):
+        yield timelineindex[key]
 
 
 def getgit(user, key, debug=False):
@@ -92,9 +102,11 @@ def getgit(user, key, debug=False):
         return debug_json
 
     url = "https://api.github.com/users/%s/events?page=$i&per_page=100" % (user)
-
-    with urllib.request.urlopen(url) as handle:
-        parsed = parsetimeline(handle.read().decode('utf-8'))
-    return parsed
+    headers = {'Authorization': 'token %s' % key}
+    myrequest = urllib.request.Request(url, headers=headers)
+    print("REQUESTING", url)
+    with urllib.request.urlopen(myrequest) as handle:
+        timeline_data = handle.read().decode('utf-8')
+    return timeline_data
 
 run()
