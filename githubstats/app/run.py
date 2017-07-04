@@ -96,7 +96,7 @@ def parsetimeline(timeline):
         yield timelineindex[key]
 
 
-def getgit(user, key, debug=True):
+def getgit(user, key, debug=False):
     """ Retrieve git timeline """
     if debug:
         debug_json = open("./data/1.json", "r").read()
