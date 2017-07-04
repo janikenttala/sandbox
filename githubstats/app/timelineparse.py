@@ -1,3 +1,8 @@
+
+# pylint: disable=C0111
+# pylint: disable=C0103
+# pylint: disable=W0621
+
 import subprocess
 
 def process(raw, jq):
@@ -8,7 +13,8 @@ def process(raw, jq):
                            shell=False,
                            bufsize=0)
 
-    stdout, stderr = cmd.communicate(raw)
+    stdout, stderr = cmd.communicate(raw) # pylint: disable=W0612
+
     for line in stdout.decode('utf-8').split("\n"):
         yield line
 
@@ -26,7 +32,7 @@ def issues(raw):
         yield line
 
 def issuecomments(raw):
-    jq = ['jq', '-c', 
+    jq = ['jq', '-c',
           '[ .[] | select( .type | contains("IssueCommentEvent"))] | .[] | { \
           "repo": .repo.name, \
           "action": "issue comment", \

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Serve github timeline """
+
+# pylint: disable=W0603
+# pylint: disable=C0103
+# pylint: disable=C0111
+
 # based on example at:
 # https://daanlenaerts.com/blog/2015/06/03/create-a-simple-http-server-with-python-3/
 
@@ -41,8 +45,6 @@ class timelineServer(SimpleHTTPRequestHandler):
         # value to it is not preserved, next do_GET it is empty again.
         global raw_timeline
 
-
-        
         if self.path == "/data/timeline.json":
             timeline = list()
             if cache_expired(3600):
