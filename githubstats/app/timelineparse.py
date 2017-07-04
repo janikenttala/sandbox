@@ -1,5 +1,4 @@
 import subprocess
-import sys
 
 def process(raw, jq):
     cmd = subprocess.Popen(jq,
@@ -19,7 +18,7 @@ def issues(raw):
            "repo": .repo.name, \
            "action": .payload.action, \
            "time": .created_at, \
-           "target": .payload.issue.title, \
+           "target": "issue",  \
            "message": .payload.issue.title \
            }']
 
@@ -83,10 +82,10 @@ def watch(raw):
         "target": "timeline", \
         "message": .payload.action \
         }']
-    
+
     for line in process(raw, jq):
         yield line
-    
+
 def parse(data):
     for line in issues(data):
         yield line
@@ -101,3 +100,9 @@ def parse(data):
         yield line
 
 
+
+if __name__ == "__main__":
+    import sys
+    data = sys.stdin.read()
+    for line in parse(data.encode("utf-8")):
+        print(line)
