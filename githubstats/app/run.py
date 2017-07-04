@@ -7,6 +7,7 @@ from http.server import SimpleHTTPRequestHandler, HTTPServer
 import urllib.request
 import time
 import json
+import config
 
 import timelineparse
 # HTTPRequestHandler class
@@ -40,24 +41,21 @@ class timelineServer(SimpleHTTPRequestHandler):
         # value to it is not preserved, next do_GET it is empty again.
         global raw_timeline
 
-        allowed = ["/timeline.html", "/timeline.css", "/timeline.js"]
-        #allowed.append("/data/timeline.json") # test data
 
-        if self.path in allowed:
-            SimpleHTTPRequestHandler.do_GET(self)
-        elif self.path == "/data/timeline.json":
+        
+        if self.path == "/data/timeline.json":
             timeline = list()
-            if cache_expired(10):
+            if cache_expired(3600):
                 timeline = list()
                 raw_timeline = getgit("evilon",
-                                      "<key>",
+                                      config.key,
                                       debug=False)
             for line in parsetimeline(raw_timeline):
                 timeline.append(line)
 
             self._send(json.dumps(timeline), "application/json")
         else:
-            self.err()
+            SimpleHTTPRequestHandler.do_GET(self)
 
 
 def run():
@@ -85,6 +83,7 @@ def parsetimeline(timeline):
     for line in timelineparse.parse(timeline):
         if len(line) == 0:
             continue
+        print(line)
         linedict = json.loads(line)
         index = linedict["time"] + "-" + str(time.time())
 
@@ -95,7 +94,7 @@ def parsetimeline(timeline):
         yield timelineindex[key]
 
 
-def getgit(user, key, debug=False):
+def getgit(user, key, debug=True):
     """ Retrieve git timeline """
     if debug:
         debug_json = open("./data/1.json", "r").read()
