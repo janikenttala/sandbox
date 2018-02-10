@@ -32,4 +32,4 @@ docker run -ti --rm riphue
 * <https://github.com/quentinsf/qhue>
 * <https://developers.meethue.com/documentation/getting-started>
 
-Kudos to Turmi0 for pointers and examples.
+Kudos to @Turmi0 for pointers and examples.
