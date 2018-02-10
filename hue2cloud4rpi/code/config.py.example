@@ -1,0 +1,24 @@
+# README.md provides a link to Philips documentation on how to 
+# get these values filled
+BRIDGE_IP="" 
+huetoken=""
+
+cloud4rpi_device_token=""
+
+# This dict allows us to have aliases for the sensors. 
+#
+# It is also used for evil trickery.
+# When using the chart widget in cloud4rpi to display certain measurement 
+# (say 'temperature') from several sensors, we have a problem. 
+# 
+# The widget does not show visually, from which device each measurement is.
+# So we need to prefix the alias to the value names.
+# 
+# {"temperature": 20 } becomes
+# {"mancave temperature": 20}
+
+devices = {"default": [],
+            "mancave": ["Hue ambient light sensor 1", "MotionSensor 15.Companion", "Hue temperature sensor 1"],
+            "upstairs": ["Hue ambient light sensor 2", "MotionSensor 19.Companion", "Hue temperature sensor 2"]}
+
+
