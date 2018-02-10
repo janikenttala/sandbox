@@ -1,5 +1,5 @@
 
-# Riphue
+# Hue2Cloud4RPi
 
 Get data from Hue bridge and upload it to Cloud4rpi
 
