@@ -1,7 +1,9 @@
 
 # Hue2Cloud4RPi
 
-Get data from Hue bridge and upload it to Cloud4rpi
+Get data from Hue bridge and upload it to Cloud4rpi.
+
+![example](cloud4rpi.png)
 
 ## Instructions
 
