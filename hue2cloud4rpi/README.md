@@ -17,7 +17,7 @@ Get data from Hue bridge and upload it to Cloud4rpi.
 
 First clone this repository to yourself.
 Copy ```code/config.py.example``` to ```code/config.py``` and add your configuration.
-See "Instructions" section to figure out correct values.
+See "Instructions" section to figure out the correct values.
 
 ### Option B: use environment variables
 
@@ -54,4 +54,4 @@ docker run -e huetoken="<hue token>" -e cloud4rpi_device_token="<cloud4rpi devic
 * <https://github.com/quentinsf/qhue>
 * <https://developers.meethue.com/documentation/getting-started>
 
-Kudos to Turmi0 for pointers and examples.
+Kudos to @Turmi0 for pointers and examples.
