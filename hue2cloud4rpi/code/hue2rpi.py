@@ -2,9 +2,9 @@ import qhue
 import json
 import urllib2
 import datetime
-import config
 import sys
 import requests
+import os
 
 def init_token(data, token):
     confurl = "https://cloud4rpi.io/api/devices/%s/config" % token
@@ -31,6 +31,11 @@ def tocloud4rpi(data, token):
     print "Data update:",response.read()
 
 def get_cloud4rpi_device_and_token(name):
+    try:
+        import config
+    except ImportError:
+        return {"device" : "default" }
+
     device = None
     for device_name in config.devices:
         if name in config.devices[device_name]:
@@ -56,9 +61,28 @@ def motion(sensor, name):
     data.update(get_cloud4rpi_device_and_token(name))
     return data
 
+
 def main():
+    
+    try:
+        import config
+        huetoken = os.getenv("huetoken", config.huetoken)
+        bridge_ip = os.getenv("bridge_ip", config.bridge_ip)
+        cloud4rpi_device_token = os.getenv("cloud4rpi_device_token", config.cloud4rpi_device_token)
+    except ImportError:
+        huetoken = os.getenv("huetoken", None)
+        bridge_ip = os.getenv("bridge_ip", None)
+        cloud4rpi_device_token = os.getenv("cloud4rpi_device_token", None)
+        if huetoken == None or bridge_ip == None or cloud4rpi_device_token == None:
+            sys.stderr.write("huetoken: %s\n" % huetoken)
+            sys.stderr.write("bridge_ip: %s\n" % bridge_ip)
+            sys.stderr.write("cloud4rpi_device_token: %s\n" % cloud4rpi_device_token)
+            sys.stderr.write("One of the settings was not set. See README.md on how to do it.\n")
+            sys.exit(1)
+
+
     received_data = list()
-    bridge = qhue.Bridge(config.BRIDGE_IP, config.huetoken)
+    bridge = qhue.Bridge(bridge_ip, huetoken)
     try:
         sensors = bridge.sensors()
     except (qhue.qhue.QhueException, requests.exceptions.InvalidURL) as  e:
@@ -86,15 +110,13 @@ def main():
     for k,v in payload.iteritems():
         init_dict = {"name": k, "type":"numeric"}
         init_list.append(init_dict)
-
-    token = config.cloud4rpi_device_token
     
     # Make sure the device is initialized for the to-be-sent dataset
-    init_token(init_list, token)
+    init_token(init_list, cloud4rpi_device_token)
 
     # Send
     package = {"ts": datetime.datetime.utcnow().isoformat(), "payload": payload}
-    tocloud4rpi(package, token)
+    tocloud4rpi(package, cloud4rpi_device_token)
     
 
 if __name__ == "__main__":

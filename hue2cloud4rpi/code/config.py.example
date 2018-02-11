@@ -1,6 +1,6 @@
 # README.md provides a link to Philips documentation on how to 
 # get these values filled
-BRIDGE_IP="" 
+bridge_ip=""
 huetoken=""
 
 cloud4rpi_device_token=""

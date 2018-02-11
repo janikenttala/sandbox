@@ -13,20 +13,42 @@ Get data from Hue bridge and upload it to Cloud4rpi.
 
 ## Configure
 
+### Option A: use a config file
+
 First clone this repository to yourself.
 Copy ```code/config.py.example``` to ```code/config.py``` and add your configuration.
 See "Instructions" section to figure out correct values.
 
+### Option B: use environment variables
+
+You can set the following environment variables:
+
+ * bridge_ip
+ * huetoken
+ * cloud4rpi_device_token
+
+
 ## Build & Run
 
-You need to build every time you change configuration. If you have a working
-setup, you can just run.
+You need to build every time you change the configuration file.
 
-```!shell
+```shell
 docker build -t riphue .
+```
+
+If you have build a working setup already, you can just run.
+
+```shell
 docker run -ti --rm riphue
 ```
 
+You can also send the environment variables from the host system. But you need to understand
+anyone else using that system will see those. In general, it is safe to assume people with access
+to the host system will have access to the container, unless proven otherwise.
+
+```shell
+docker run -e huetoken="<hue token>" -e cloud4rpi_device_token="<cloud4rpi device token>" -e bridge_ip="<the ip of your hue bridge" -ti --rm riphue
+```
 ## References
 
 * <https://github.com/quentinsf/qhue>
