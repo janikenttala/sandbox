@@ -1,4 +1,3 @@
-
 # Hue2Cloud4RPi
 
 Get data from Hue bridge and upload it to Cloud4rpi.
@@ -23,10 +22,9 @@ See "Instructions" section to figure out the correct values.
 
 You can set the following environment variables:
 
- * bridge_ip
- * huetoken
- * cloud4rpi_device_token
-
+* bridge_ip
+* huetoken
+* cloud4rpi_device_token
 
 ## Build & Run
 
@@ -49,6 +47,7 @@ to the host system will have access to the container, unless proven otherwise.
 ```shell
 docker run -e huetoken="<hue token>" -e cloud4rpi_device_token="<cloud4rpi device token>" -e bridge_ip="<the ip of your hue bridge" -ti --rm riphue
 ```
+
 ## References
 
 * <https://github.com/quentinsf/qhue>
