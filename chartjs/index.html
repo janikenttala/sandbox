@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>foo</title>
+    <script src="moment-with-locales.min.js"></script>
+    <script src="Chart.min.js"></script>
+</head>
+
+<body>
+    <h1> foo</h1>
+    <canvas id="line-chart" width="800" height="450"></canvas>
+
+</body>
+<script>
+var config = {
+    "line-chart": {
+      chart_title: "Time data",
+      time_interval: "day",
+      x_label: "Date",
+      y_label: "Value",
+      data_labels: "Values",
+      data_color: "rgba(87, 51, 81, 0.9)",
+      display_formats: {day: 'YYYY-MM-DD'},
+      stacked: true}
+}
+
+var      chart_title =  "Time data";
+var      time_interval ="day";
+var      x_label = "Date";
+var      y_label = "Value";
+var      data_labels = "Values";
+var      data_color = "rgba(87, 51, 81, 0.9)";
+var      display_formats = {day: 'YYYY-MM-DD'};
+var      stacked = true;
+</script>
+<script src="code.js"></script>
+
+</html>
