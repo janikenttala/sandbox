@@ -3,6 +3,7 @@
 <head>
     <title>foo</title>
     <script src="moment-with-locales.min.js"></script>
+
     <script src="Chart.min.js"></script>
 </head>
 
@@ -12,8 +13,9 @@
 
 </body>
 <script>
-var config = {
+var configx = {
     "line-chart": {
+      data_file: "data.json",
       chart_title: "Time data",
       time_interval: "day",
       x_label: "Date",
@@ -24,12 +26,12 @@ var config = {
       stacked: true}
 }
 
-var      chart_title =  "Time data";
+var      chart_title =  "Time datax";
 var      time_interval ="day";
 var      x_label = "Date";
 var      y_label = "Value";
 var      data_labels = "Values";
-var      data_color = "rgba(87, 51, 81, 0.9)";
+var      data_color = "rgba(255, 51, 81, 1)";
 var      display_formats = {day: 'YYYY-MM-DD'};
 var      stacked = true;
 </script>
