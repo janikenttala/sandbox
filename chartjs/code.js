@@ -16,12 +16,7 @@ function myCallback(config, response) {
     var jsonfile = JSON.parse(response);
 
     // Map labels and values from json to form the chart expects.
-    var datamodel = {
-        label: "date",
-        values: ["age", "page"],
-        colors: ["rgba(0, 251, 0, 1)", "rgba(200, 251, 0, 0.9)"]
-    };
-
+    var datamodel = config.data_model;
     // Get values
     var datasets = [];
     for (let i = 0; i < datamodel["values"].length; i++) {
@@ -29,9 +24,9 @@ function myCallback(config, response) {
         var name = datamodel.values[i];
 
         // this is the format chart wants
-        dataset["label"] = name;
-        dataset["data"] = jsonfile.map(function (e) {return e[name];});
-        dataset["backgroundColor"] = datamodel.colors[i];
+        dataset.label = name;
+        dataset.data = jsonfile.map(function (e) {return e[name];});
+        dataset.backgroundColor = datamodel.colors[i];
         datasets.push(dataset);
     }
     var labels = jsonfile.map(function (e) {return e[datamodel["label"]];});
