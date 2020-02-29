@@ -2,15 +2,25 @@
 
 <head>
     <title>foo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <script src="moment-with-locales.min.js"></script>
 
     <script src="Chart.min.js"></script>
 </head>
-
 <body>
-    <h1> foo</h1>
-    <canvas id="line-chart" width="800" height="450"></canvas>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h2>Foo1</h2>
+                <canvas id="line-chart" width="800" height="450"></canvas>
+            </div>
+            <div class="col-12 col-md-6">
+                <h2> Foo2</h2>
 
+                <canvas id="line-chart2" width="800" height="450"></canvas>
+            </div>
+        </div>
 </body>
 <script>
 var configx = {
@@ -26,9 +36,23 @@ var configx = {
       x_label: "Date",
       y_label: "Value",
       data_labels: "Values",
-      data_color: "rgba(87, 51, 81, 0.9)",
       display_formats: {day: 'YYYY-MM-DD'},
-      stacked: true}
+      stacked: true},
+
+      "line-chart2": {
+      data_file: "data2.json",
+      data_model: {
+        label: "date",
+        values: ["days", "notdays"],
+        colors: ["rgba(0, 0, 250, 0.6)", "rgba(200, 0, 100, 0.6)"]
+      },
+      chart_title: "Day data",
+      time_interval: "day",
+      x_label: "Date",
+      y_label: "Value",
+      data_labels: "Values",
+      display_formats: {day: 'YYYY-MM-DD'},
+      stacked: true},
 }
 
 var      chart_title =  "Time datax";

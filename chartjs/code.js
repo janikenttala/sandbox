@@ -1,17 +1,17 @@
-function loadJSON(data, config, callback) {
+function loadJSON(data, chart_id, config, callback) {
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json");
     xobj.open('GET', data, true);
     xobj.onreadystatechange = function () {
         if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-            callback(config, xobj.responseText);
+            callback(config, chart_id, xobj.responseText);
         }
     };
     xobj.send(null);
 }
 
-function myCallback(config, response) {
+function myCallback(config, chart_id, response) {
     // Parse JSON string into object
     var jsonfile = JSON.parse(response);
 
@@ -31,7 +31,7 @@ function myCallback(config, response) {
     }
     var labels = jsonfile.map(function (e) {return e[datamodel["label"]];});
 
-    var ctx = document.getElementById("line-chart");
+    var ctx = document.getElementById(chart_id);
     var config = {
         type: 'line',
         data: {
@@ -40,6 +40,7 @@ function myCallback(config, response) {
         },
         options: {
             responsive: true,
+            spanGaps: true,
             title: {
                 display: true,
                 text: config.chart_title
@@ -84,6 +85,7 @@ for (var key in configx) {
     let chart_id = key;
     let data_file = configx[key]["data_file"];
     let config = configx[chart_id];
-    loadJSON(data_file, config, myCallback);
+    console.log(data_file)
+    loadJSON(data_file, chart_id, config, myCallback);
 
 }
